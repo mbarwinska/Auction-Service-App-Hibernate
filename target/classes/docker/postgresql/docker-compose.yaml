@@ -1,0 +1,35 @@
+version: '3'
+
+services:
+  db:
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: "password"
+      POSTGRES_USER: "user"
+    ports:
+      - "5432:5432"
+    volumes:
+      - /home/krzysiek/volumes/hibernatePostgresql:/var/lib/postgresql/data
+    networks:
+      jdbc-network:
+        ipv4_address: 172.20.1.1
+
+  pg_admin:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "kk@ggg.com"
+      PGADMIN_DEFAULT_PASSWORD: "admin"
+    ports:
+      - "80:80"
+    depends_on:
+      - db
+    networks:
+      jdbc-network:
+        ipv4_address: 172.20.1.2
+
+networks:
+  jdbc-network:
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.20.0.0/16

@@ -1,0 +1,23 @@
+# Use root/example as user/password credentials
+version: '3.1'
+
+services:
+
+  db:
+    image: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: passw
+    ports:
+      - "3306:3306"
+    volumes:
+      - /home/krzysiek/volumes/mysql:/var/lib/mysql
+    networks:
+      mysql-network:
+        ipv4_address: 172.21.1.1
+networks:
+  mysql-network:
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.21.0.0/16
