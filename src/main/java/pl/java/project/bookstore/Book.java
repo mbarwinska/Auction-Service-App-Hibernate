@@ -29,7 +29,7 @@ public class Book {
     @Column(name = "BOOK_ID")
     private Long id;
 
-    @Column(name = "TITLE")
+    @Column(name = "TITLE", nullable = false)
     private String title;
 
     @Column(name = "AUTHOR")
