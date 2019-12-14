@@ -14,6 +14,7 @@
         <class>pl.java.project.bookstore.Book</class>
         <class>pl.java.project.bookstore.Preorder</class>
         <class>pl.java.project.bookstore.Comment</class>
+        <class>pl.java.project.bookstore.TestowaEncja</class>
 
         <properties>
             <property name="javax.persistence.jdbc.driver"
@@ -35,13 +36,13 @@
                       value="true"/>
 
             <property name="hibernate.connection.autocommit"
-                      value="true" />
+                      value="true"/>
 
             <property name="hibernate.hbm2ddl.auto"
                       value="create"/>
 
-<!--            <property name="exclude-unlisted-classes"-->
-<!--                      value="false"/>-->
+            <!--            <property name="exclude-unlisted-classes"-->
+            <!--                      value="false"/>-->
 
             <property name="hibernate.archive.autodetection"
                       value="false"/>
