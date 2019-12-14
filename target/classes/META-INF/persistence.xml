@@ -14,7 +14,9 @@
         <class>pl.java.project.bookstore.Book</class>
         <class>pl.java.project.bookstore.Preorder</class>
         <class>pl.java.project.bookstore.Comment</class>
-        <class>pl.java.project.bookstore.TestowaEncja</class>
+        <class>pl.java.project.bookstore.SimpleEntity</class>
+        <class>pl.java.project.auction.Item</class>
+        <class>pl.java.project.auction.Bid</class>
 
         <properties>
             <property name="javax.persistence.jdbc.driver"
