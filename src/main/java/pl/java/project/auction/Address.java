@@ -10,12 +10,13 @@ public class Address {
     private Long Id;
     private String street;
     private String city;
-    private int zipCode;
+    private String zipCode;
     private String type;
 
-    protected Address () {}
+    protected Address() {
+    }
 
-    public Address(String street, String city, int zipCode, String type) {
+    public Address(String street, String city, String zipCode, String type) {
         this.street = street;
         this.city = city;
         this.zipCode = zipCode;
@@ -34,7 +35,7 @@ public class Address {
         return city;
     }
 
-    public int getZipCode() {
+    public String getZipCode() {
         return zipCode;
     }
 

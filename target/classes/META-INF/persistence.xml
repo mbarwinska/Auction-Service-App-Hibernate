@@ -11,12 +11,11 @@
 
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 
-        <class>pl.java.project.bookstore.Book</class>
-        <class>pl.java.project.bookstore.Preorder</class>
-        <class>pl.java.project.bookstore.Comment</class>
-        <class>pl.java.project.bookstore.SimpleEntity</class>
         <class>pl.java.project.auction.Item</class>
         <class>pl.java.project.auction.Bid</class>
+        <class>pl.java.project.auction.Category</class>
+        <class>pl.java.project.auction.Description</class>
+        <class>pl.java.project.auction.Person</class>
 
         <properties>
             <property name="javax.persistence.jdbc.driver"
@@ -31,7 +30,7 @@
             <property name="javax.persistence.jdbc.password"
                       value="passw"/>
 
-            <property name="dialect" value="org.hibernate.dialect.MySQL5Dialect"/>
+            <property name="dialect" value="org.hibernate.dialect.MySQL8Dialect"/>
 
 
             <property name="hibernate.show_sql"
