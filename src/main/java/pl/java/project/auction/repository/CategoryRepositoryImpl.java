@@ -1,8 +1,11 @@
 package pl.java.project.auction.repository;
 
+import org.hibernate.Hibernate;
 import pl.java.project.auction.entities.Category;
+import pl.java.project.auction.entities.Item;
 
 import javax.persistence.EntityManager;
+import java.util.List;
 import java.util.Objects;
 
 public class CategoryRepositoryImpl implements CategoryRepository {
@@ -36,5 +39,13 @@ public class CategoryRepositoryImpl implements CategoryRepository {
     @Override
     public void deleteCategory(Category category) {
         em.remove(category);
+    }
+
+    @Override
+    public Category readCategoryWithItemsList(Long id) {
+        final Category category = readCategoryById(id);
+        final List<Item> items = category.getItems();
+        Hibernate.initialize(items);
+        return category;
     }
 }
