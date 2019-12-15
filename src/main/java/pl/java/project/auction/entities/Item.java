@@ -1,4 +1,4 @@
-package pl.java.project.auction;
+package pl.java.project.auction.entities;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -23,7 +23,7 @@ public class Item {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "category_id")
+    @JoinColumn(name = "category_id", foreignKey = @ForeignKey(name = "FK_item_category_id"))
     private Category category;
 
     private String description;
@@ -52,6 +52,14 @@ public class Item {
 
     public void setInitPrice(BigDecimal initPrice) {
         this.initPrice = initPrice;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    public Category getCategory() {
+        return category;
     }
 
     @Override
