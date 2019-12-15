@@ -1,16 +1,23 @@
 package pl.java.project.auction;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
+@Table(name = "CATEGORY")
 public class Category {
 
     @Id
+    @Column(name = "category_id")
     private Long id;
     private String name;
-//    private List<Item> items;
+
+    @OneToMany
+    @JoinColumn(name = "item_id")
+    private List<Item> items = new ArrayList<>();
+
 
     protected Category() {
     }

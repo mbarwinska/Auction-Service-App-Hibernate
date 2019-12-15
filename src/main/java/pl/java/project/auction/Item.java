@@ -1,28 +1,30 @@
 package pl.java.project.auction;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Objects;
 
 @Entity
+@Table(name = "ITEMS")
 public class Item {
 
 
     protected Item() {
     }
 
-    public Item(Long id, String description, BigDecimal initPrice) {
-        this.id = id;
+    public Item(String description, BigDecimal initPrice) {
         this.description = description;
         this.initPrice = initPrice;
     }
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "item_id")
     private Long id;
+
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
 
     private String description;
 
