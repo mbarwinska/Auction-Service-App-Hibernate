@@ -1,14 +1,18 @@
 package pl.java.project.auction.repository;
 
+import org.hibernate.LazyInitializationException;
 import org.junit.jupiter.api.*;
 import pl.java.project.auction.entities.Category;
+import pl.java.project.auction.entities.Item;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+import java.math.BigDecimal;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class CategoryRepositoryImplTest {
@@ -84,4 +88,37 @@ class CategoryRepositoryImplTest {
 
         assertThat(updatedCategory.getName()).isEqualTo(newValueOfName);
     }
+
+    @Order(5)
+    @Test
+    void throwLazyInitializationException() {
+        final EntityTransaction transaction = em.getTransaction();
+        Item item = new Item("Opis,", BigDecimal.TEN);
+
+        transaction.begin();
+        final Category valueFromDatabate = categoryRepository.readCategoryById(id);
+        transaction.commit();
+        em.close();
+
+
+        assertThatExceptionOfType(LazyInitializationException.class).isThrownBy(
+                () -> valueFromDatabate.getItems().add(item)
+        );
+    }
+
+
+    @Order(10)
+    @Test
+    void deleteCategory() {
+        final EntityTransaction transaction = em.getTransaction();
+
+        transaction.begin();
+        final Category valueFromDatabate = categoryRepository.readCategoryById(id);
+        categoryRepository.deleteCategory(valueFromDatabate);
+        transaction.commit();
+        final Category shouldBeNull = categoryRepository.readCategoryById(id);
+        assertThat(shouldBeNull).isNull();
+    }
+
+
 }
