@@ -3,6 +3,7 @@ package pl.java.project.auction.repository;
 import org.hibernate.LazyInitializationException;
 import org.junit.jupiter.api.*;
 import pl.java.project.auction.entities.Category;
+import pl.java.project.auction.entities.Description;
 import pl.java.project.auction.entities.Item;
 
 import javax.persistence.EntityManager;
@@ -93,7 +94,7 @@ class CategoryRepositoryImplTest {
     @Test
     void throwLazyInitializationException() {
         final EntityTransaction transaction = em.getTransaction();
-        Item item = new Item("Opis,", BigDecimal.TEN);
+        Item item = new Item(new Description("Opis"), BigDecimal.TEN);
 
         transaction.begin();
         final Category valueFromDatabate = categoryRepository.readCategoryById(id);
