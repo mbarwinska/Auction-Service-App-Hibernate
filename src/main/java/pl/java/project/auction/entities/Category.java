@@ -19,7 +19,7 @@ public class Category {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "item_id")
     private List<Item> items = new ArrayList<>();
 

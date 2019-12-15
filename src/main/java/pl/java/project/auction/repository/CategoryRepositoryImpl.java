@@ -35,6 +35,6 @@ public class CategoryRepositoryImpl implements CategoryRepository {
 
     @Override
     public void deleteCategory(Category category) {
-
+        em.remove(category);
     }
 }
