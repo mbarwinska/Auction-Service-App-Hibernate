@@ -1,10 +1,16 @@
 package pl.java.project.auction;
 
-import javax.persistence.Embeddable;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.util.Objects;
 
-@Embeddable
+@Entity
 public class Person {
+    @Id
+    private Long id;
+
+    protected Person() {
+    }
 
     public Person(String name, String fullName) {
         this.name = name;
@@ -44,5 +50,14 @@ public class Person {
     @Override
     public int hashCode() {
         return Objects.hash(name, fullName);
+    }
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", fullName='" + fullName + '\'' +
+                '}';
     }
 }
