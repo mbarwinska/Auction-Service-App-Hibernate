@@ -106,6 +106,20 @@ class CategoryRepositoryImplTest {
         );
     }
 
+    @Order(6)
+    @Test
+    void notThrowLazyInitializationException() {
+        final EntityTransaction transaction = em.getTransaction();
+
+        transaction.begin();
+        final Category valueFromDatabate = categoryRepository.readCategoryWithItemsList(id);
+        transaction.commit();
+        em.close();
+
+        assertThat(valueFromDatabate.getItems().isEmpty()).isTrue();
+
+    }
+
 
     @Order(10)
     @Test

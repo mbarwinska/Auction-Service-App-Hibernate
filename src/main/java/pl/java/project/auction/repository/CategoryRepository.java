@@ -11,4 +11,6 @@ public interface CategoryRepository {
     void updateCategory(Category category);
 
     void deleteCategory(Category category);
+
+    Category readCategoryWithItemsList(Long id);
 }
