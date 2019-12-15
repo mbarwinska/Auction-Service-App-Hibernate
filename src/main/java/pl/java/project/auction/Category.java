@@ -1,6 +1,7 @@
 package pl.java.project.auction;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -12,6 +13,9 @@ public class Category {
     @Id
     @Column(name = "category_id")
     private Long id;
+
+    @NotNull
+    @Column(name = "name", nullable = false)
     private String name;
 
     @OneToMany
@@ -21,6 +25,7 @@ public class Category {
 
     protected Category() {
     }
+
 
     public Category(String name) {
         this.name = name;
@@ -32,6 +37,20 @@ public class Category {
 
     public String getName() {
         return name;
+    }
+
+    public void addItem(Item item) {
+        item.setCategory(this);
+        items.add(item);
+    }
+
+    public void removeItem(Item item) {
+        items.remove(item);
+        item.setCategory(null);
+    }
+
+    public List<Item> getItems() {
+        return items;
     }
 
     @Override
@@ -55,4 +74,6 @@ public class Category {
                 ", name='" + name + '\'' +
                 '}';
     }
+
+
 }
