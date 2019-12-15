@@ -15,10 +15,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 class CategoryRepositoryImplTest {
     private EntityManagerFactory emf = Persistence.createEntityManagerFactory("ORM");
     private EntityManager em;
+    private CategoryRepository categoryRepository;
 
     @BeforeEach
     void setUp() {
         em = emf.createEntityManager();
+        categoryRepository = new CategoryRepositoryImpl(em);
     }
 
     @AfterEach
@@ -28,7 +30,6 @@ class CategoryRepositoryImplTest {
 
     @Test
     void addToRepository() {
-        CategoryRepository categoryRepository = new CategoryRepositoryImpl(em);
         Category category = new Category("Book");
         final EntityTransaction transaction = em.getTransaction();
 
@@ -37,5 +38,18 @@ class CategoryRepositoryImplTest {
         transaction.commit();
 
         assertThat(result.getId()).isGreaterThan(0);
+    }
+
+    @Test
+    void readCategory() {
+        Long id = 3L;
+        final EntityTransaction transaction = em.getTransaction();
+
+        transaction.begin();
+        final Category result = categoryRepository.readCategoryById(id);
+
+        transaction.commit();
+        assertThat(result).isNotNull();
+
     }
 }

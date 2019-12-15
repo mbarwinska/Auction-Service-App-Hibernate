@@ -24,7 +24,8 @@ public class CategoryRepositoryImpl implements CategoryRepository {
 
     @Override
     public Category readCategoryById(Long id) {
-        return null;
+        final Category category = em.find(Category.class, id);
+        return category;
     }
 
     @Override
