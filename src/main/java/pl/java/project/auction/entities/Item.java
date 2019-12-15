@@ -1,4 +1,4 @@
-package pl.java.project.auction;
+package pl.java.project.auction.entities;
 
 import javax.persistence.*;
 import java.math.BigDecimal;

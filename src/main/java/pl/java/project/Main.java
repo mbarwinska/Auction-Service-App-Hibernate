@@ -10,6 +10,7 @@ public class Main {
 
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("ORM");
 
+
         EntityManager entityManager = emf.createEntityManager();
 
 //        Session session = entityManager.unwrap( Session.class );
