@@ -54,4 +54,34 @@ class CategoryRepositoryImplTest {
         assertThat(result).isNotNull();
 
     }
+
+    @Order(3)
+    @Test
+    void updateCategory() {
+        final EntityTransaction transaction = em.getTransaction();
+        final String newValueOfName = "Ksiazki";
+
+
+        transaction.begin();
+        final Category valueFromDatabase = categoryRepository.readCategoryById(id);
+        transaction.commit();
+        em.close();
+//        Zamknięcie pierwsze EntityManager i przejście obiektu w stan odłączony
+
+
+        valueFromDatabase.modifyName(newValueOfName);
+
+
+        em = emf.createEntityManager();
+        categoryRepository = new CategoryRepositoryImpl(em);
+        final EntityTransaction secondTransaction = em.getTransaction();
+
+//       Utrwalenie obiektu który jest w stanie odłączony
+        secondTransaction.begin();
+        categoryRepository.updateCategory(valueFromDatabase);
+        final Category updatedCategory = categoryRepository.readCategoryById(id);
+        secondTransaction.commit();
+
+        assertThat(updatedCategory.getName()).isEqualTo(newValueOfName);
+    }
 }
