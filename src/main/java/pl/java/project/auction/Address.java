@@ -1,4 +1,4 @@
 package pl.java.project.auction;
 
-public class kAddress {
+public class Address {
 }
