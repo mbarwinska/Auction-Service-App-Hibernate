@@ -3,6 +3,7 @@ package pl.java.project.auction.repository;
 import pl.java.project.auction.entities.Category;
 
 import javax.persistence.EntityManager;
+import java.util.Objects;
 
 public class CategoryRepositoryImpl implements CategoryRepository {
 
@@ -15,7 +16,10 @@ public class CategoryRepositoryImpl implements CategoryRepository {
 
     @Override
     public Category createCategory(Category category) {
-        return null;
+        if (Objects.isNull(category.getId())) {
+            em.persist(category);
+        }
+        return category;
     }
 
     @Override

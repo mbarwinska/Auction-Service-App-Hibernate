@@ -12,6 +12,7 @@ public class Category {
 
     @Id
     @Column(name = "category_id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @NotNull
