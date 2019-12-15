@@ -8,7 +8,7 @@ public interface CategoryRepository {
 
     Category readCategoryById(Long id);
 
-    Category updateCategory(Category category);
+    void updateCategory(Category category);
 
     void deleteCategory(Category category);
 }

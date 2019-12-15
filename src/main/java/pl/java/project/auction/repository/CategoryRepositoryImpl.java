@@ -29,8 +29,8 @@ public class CategoryRepositoryImpl implements CategoryRepository {
     }
 
     @Override
-    public Category updateCategory(Category category) {
-        return null;
+    public void updateCategory(Category category) {
+        em.merge(category);
     }
 
     @Override
