@@ -1,14 +1,16 @@
 package pl.java.project.auction;
 
-
-
-
-import javax.persistence.Embeddable;
-import java.util.List;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.util.Objects;
 
-@Embeddable
+@Entity
 public class Person {
+    @Id
+    private Long id;
+
+    protected Person() {
+    }
 
     private String name;
     private String fullName;
@@ -39,7 +41,7 @@ public class Person {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof Person)) return false;
         Person person = (Person) o;
         return Objects.equals(name, person.name) &&
                 Objects.equals(fullName, person.fullName);
@@ -48,5 +50,14 @@ public class Person {
     @Override
     public int hashCode() {
         return Objects.hash(name, fullName);
+    }
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", fullName='" + fullName + '\'' +
+                '}';
     }
 }
