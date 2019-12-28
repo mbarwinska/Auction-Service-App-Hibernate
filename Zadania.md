@@ -7,7 +7,7 @@
 
 3. Pamiętaj o zasadach dobrego programowania.
 
-4. Niewszystkie encje będą posiadały wszystkie metody CRUD..
+4. Nie wszystkie encje będą posiadały wszystkie metody CRUD..
 
 5. Jeżeli jest to możliwe pisz testy jednostkowe i/lub integracyjne.
 
