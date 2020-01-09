@@ -17,23 +17,15 @@ public class Item {
         this.initPrice = initPrice;
     }
 
-    public Item(Category category, Description description, BigDecimal initPrice) {
-        this.category = category;
-        this.description = description;
-        this.initPrice = initPrice;
-    }
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "item_id")
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "category", foreignKey = @ForeignKey(name = "FK_item_category_id"))
+    @JoinColumn(name = "category_id", foreignKey = @ForeignKey(name = "FK_item_category_id"))
     private Category category;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "description_id", foreignKey = @ForeignKey(name = "FK_item_description_id"))
     private Description description;
 
     private BigDecimal initPrice;
@@ -49,7 +41,6 @@ public class Item {
     public Description getDescription() {
         return description;
     }
-
 
     public BigDecimal getInitPrice() {
         return initPrice;

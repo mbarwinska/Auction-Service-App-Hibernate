@@ -39,6 +39,7 @@ public class Category {
         return name;
     }
 
+
     public void addItem(Item item) {
         item.setCategory(this);
         items.add(item);
@@ -49,13 +50,14 @@ public class Category {
         item.setCategory(null);
     }
 
+    public void modifyName(String name){
+        this.name = name;
+    }
+
     public List<Item> getItems() {
         return items;
     }
 
-    public void modifyName(String name) {
-        this.name = name;
-    }
 
     @Override
     public boolean equals(Object o) {

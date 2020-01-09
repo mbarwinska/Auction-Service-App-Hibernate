@@ -1,7 +1,8 @@
 package pl.java.project.auction.repository;
 
-import org.junit.jupiter.api.*;
-import pl.java.project.auction.entities.Category;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import pl.java.project.auction.entities.Description;
 import pl.java.project.auction.entities.Item;
 
@@ -9,24 +10,22 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+
 import java.math.BigDecimal;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
+import static org.junit.jupiter.api.Assertions.*;
 
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class ItemRepositoryImplTest {
-
     private EntityManagerFactory emf = Persistence.createEntityManagerFactory("ORM");
     private EntityManager em;
-    private static Long id;
     private ItemRepository itemRepository;
-    private CategoryRepository categoryRepository;
+    private static Long id;
 
     @BeforeEach
     void setUp() {
         em = emf.createEntityManager();
         itemRepository = new ItemRepositoryImpl(em);
-        categoryRepository = new CategoryRepositoryImpl(em);
     }
 
     @AfterEach
@@ -34,34 +33,16 @@ class ItemRepositoryImplTest {
         em.close();
     }
 
-    @Order(1)
     @Test
-    void createNewCategoryForTest() {
-        final EntityTransaction transaction = em.getTransaction();
+    void addItem(){
+        Item item = new Item(new Description("Comics"), BigDecimal.TEN);
+        EntityTransaction transaction = em.getTransaction();
 
         transaction.begin();
-        Category category = new Category("Fake category");
-        categoryRepository.createCategory(category);
+        Item result = itemRepository.addItem(item);
         transaction.commit();
 
-        id = category.getId();
+        assertThat(result.getId()).isGreaterThan(0);
 
-        assertThat(category.getId()).isGreaterThan(0);
     }
-
-    @Order(2)
-    @Test
-    void addItem() {
-        final EntityTransaction transaction = em.getTransaction();
-        final Category reference = em.getReference(Category.class, id);
-        final Item item = new Item(reference, new Description("foo"), BigDecimal.TEN);
-
-        transaction.begin();
-        itemRepository.addItems(item);
-        transaction.commit();
-
-        assertThat(item.getId()).isGreaterThan(0);
-    }
-
-
 }

@@ -22,13 +22,13 @@
                       value="com.mysql.cj.jdbc.Driver"/>
 
             <property name="javax.persistence.jdbc.url"
-                      value="jdbc:mysql://172.21.1.1:3306/bookstore_orm"/>
+                      value="jdbc:mysql://localhost:3306/bookstore_orm?useTimezone=true&amp;serverTimezone=GMT"/>
 
             <property name="javax.persistence.jdbc.user"
                       value="root"/>
 
             <property name="javax.persistence.jdbc.password"
-                      value="passw"/>
+                      value="shepard!n7"/>
 
             <property name="dialect" value="org.hibernate.dialect.MySQL8Dialect"/>
 

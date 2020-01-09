@@ -13,8 +13,8 @@ public class ItemRepositoryImpl implements ItemRepository {
     }
 
     @Override
-    public Item addItems(Item item) {
-        if (Objects.isNull(item.getId())) {
+    public Item addItem(Item item) {
+        if (Objects.nonNull(item.getId())) {
             em.persist(item);
         }
         return item;
@@ -22,7 +22,7 @@ public class ItemRepositoryImpl implements ItemRepository {
 
     @Override
     public Item getById(Long id) {
-        final Item item = em.find(Item.class, id);
+        Item item = em.find(Item.class, id);
         return item;
     }
 }
