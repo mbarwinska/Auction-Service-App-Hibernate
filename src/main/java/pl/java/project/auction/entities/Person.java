@@ -1,12 +1,14 @@
 package pl.java.project.auction.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
 public class Person {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     protected Person() {
@@ -17,25 +19,38 @@ public class Person {
         this.fullName = fullName;
     }
 
+    @Column(name = "imię")
     private String name;
+    @Column(name = "imię_nazwisko")
     private String fullName;
-//    private List<Address> address;
+    @ElementCollection(fetch = FetchType.LAZY)
+    @CollectionTable(name = "persons_addresses",
+            foreignKey = @ForeignKey(name = "FK_persons_id"), joinColumns = @JoinColumn(name = "person_id"))
+    private List<Address> address = new ArrayList<>();
+
+    @OneToMany(mappedBy = "item", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Bid> bids = new ArrayList<>();
 
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
 
     public String getFullName() {
         return fullName;
     }
 
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
+    public Long getId() {
+        return id;
+    }
+
+    public List<Address> getAddress() {
+        return address;
+    }
+
+    public List<Bid> getBids() {
+        return bids;
     }
 
     @Override
@@ -43,21 +58,15 @@ public class Person {
         if (this == o) return true;
         if (!(o instanceof Person)) return false;
         Person person = (Person) o;
-        return Objects.equals(name, person.name) &&
-                Objects.equals(fullName, person.fullName);
+        return id.equals(person.id) &&
+                name.equals(person.name) &&
+                fullName.equals(person.fullName) &&
+                address.equals(person.address) &&
+                bids.equals(person.bids);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, fullName);
-    }
-
-    @Override
-    public String toString() {
-        return "Person{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", fullName='" + fullName + '\'' +
-                '}';
+        return Objects.hash(id, name, fullName, address, bids);
     }
 }
